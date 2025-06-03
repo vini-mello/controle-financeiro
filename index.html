@@ -1,14 +1,65 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>controle-financeiro-app</title>
-    <script type="module" crossorigin src="assets/index-DYt-a6MT.js"></script>
-    <link rel="stylesheet" crossorigin href="assets/index--EtOCSfy.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle Financeiro - Alimentação</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Controle Financeiro - Alimentação</h1>
+
+        <!-- Entrada de valores mensais -->
+        <div class="section">
+            <h2>Valores Mensais</h2>
+            <label>Valor do Ticket (R$):</label>
+            <input type="number" id="ticketInput" step="0.01" placeholder="Ex.: 1230.72">
+            <label>Valor Extra (R$):</label>
+            <input type="number" id="extraInput" step="0.01" placeholder="Ex.: 244.00">
+            <label>Número de Semanas:</label>
+            <input type="number" id="semanasInput" value="4">
+            <button onclick="definirValores()">Definir Valores</button>
+            <button onclick="zerarDados()">Zerar Dados</button>
+        </div>
+
+        <!-- Registro de gastos -->
+        <div class="section">
+            <h2>Registrar Gasto</h2>
+            <label>Data:</label>
+            <input type="date" id="dataInput">
+            <label>Valor (R$):</label>
+            <input type="number" id="valorInput" step="0.01" placeholder="Ex.: 14.63">
+            <label>Local:</label>
+            <input type="text" id="localInput" placeholder="Ex.: Padaria">
+            <button onclick="adicionarGasto()">Adicionar Gasto</button>
+        </div>
+
+        <!-- Exibição de saldos -->
+        <div class="section">
+            <h2>Saldos</h2>
+            <p>Meta Semanal: R$ <span id="metaSemanal">0.00</span></p>
+            <p>Saldo Semanal: R$ <span id="saldoSemanal">0.00</span></p>
+            <p>Saldo Ticket: R$ <span id="saldoTicket">0.00</span></p>
+            <p>Saldo Extra: R$ <span id="saldoExtra">0.00</span></p>
+            <p>Saldo Total Mensal: R$ <span id="saldoMensal">0.00</span> <span id="statusMensal"></span></p>
+        </div>
+
+        <!-- Lista de gastos -->
+        <div class="section">
+            <h2>Gastos Registrados</h2>
+            <table id="gastosTable">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Valor (R$)</th>
+                        <th>Local</th>
+                    </tr>
+                </thead>
+                <tbody id="gastosBody"></tbody>
+            </table>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
 </html>
