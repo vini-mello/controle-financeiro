@@ -1,16 +1,15 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
     margin: 0;
     padding: 0;
+    background-color: #f4f4f4;
 }
 
 .container {
-    max-width: 600px;
-    margin: 20px auto;
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
     padding: 20px;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
@@ -18,93 +17,65 @@ h1 {
     color: #333;
 }
 
-h2 {
-    color: #555;
-    margin-top: 20px;
-}
-
-.section {
+.form {
+    background: #fff;
+    padding: 20px;
     margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 label {
     display: block;
     margin: 10px 0 5px;
-    font-weight: bold;
 }
 
-input, button {
+input[type="date"],
+input[type="number"],
+input[type="text"] {
     width: 100%;
-    padding: 10px;
+    padding: 8px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
 button {
-    background-color: #4CAF50;
-    color: white;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: #5cb85c;
+    color: #fff;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
-    margin-right: 10px;
 }
 
 button:hover {
-    background-color: #45a049;
-}
-
-#zerarDados {
-    background-color: #f44336;
-}
-
-#zerarDados:hover {
-    background-color: #da190b;
+    background: #4cae4c;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
+    padding: 10px;
     text-align: left;
+    border-bottom: 1px solid #ddd;
 }
 
 th {
-    background-color: #f2f2f2;
-}
-
-#saldoMensal {
-    font-weight: bold;
-}
-
-#statusMensal {
-    color: red;
-}
-
-.saldo-negativo {
-    color: red;
-}
-
-.saldo-positivo {
-    color: green;
+    background: #f4f4f4;
+    color: #333;
 }
 
 @media (max-width: 600px) {
     .container {
-        margin: 10px;
-        padding: 10px;
-    }
-
-    h1 {
-        font-size: 1.5em;
-    }
-
-    h2 {
-        font-size: 1.2em;
+        width: 95%;
     }
 }
