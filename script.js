@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     carregarGastos();
+    carregarModoEscuro();
 });
 
 function adicionarGasto() {
@@ -39,4 +40,28 @@ function carregarGastos() {
         `;
         corpoTabela.appendChild(linha);
     });
+}
+
+function toggleDarkMode() {
+    const body = document.body;
+    body.classList.toggle('dark-mode');
+
+    const isDarkMode = body.classList.contains('dark-mode');
+    localStorage.setItem('darkMode', isDarkMode);
+
+    const button = document.getElementById('toggleDarkMode');
+    button.textContent = isDarkMode ? 'Desativar Modo Escuro' : 'Ativar Modo Escuro';
+}
+
+function carregarModoEscuro() {
+    const isDarkMode = localStorage.getItem('darkMode') === 'true';
+    const body = document.body;
+    const button = document.getElementById('toggleDarkMode');
+
+    if (isDarkMode) {
+        body.classList.add('dark-mode');
+        button.textContent = 'Desativar Modo Escuro';
+    } else {
+        button.textContent = 'Ativar Modo Escuro';
+    }
 }
