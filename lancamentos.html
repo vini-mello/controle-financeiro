@@ -7,24 +7,44 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Lançamentos do Período</h1>
-        <div id="periodo"></div>
-        <div class="form">
-            <label for="data">Data:</label>
-            <input type="date" id="data">
-            <label for="valor">Valor (R$):</label>
-            <input type="number" id="valor" step="0.01">
-            <label for="local">Local:</label>
-            <input type="text" id="local">
-            <button onclick="adicionarGasto()">Adicionar Gasto</button>
-        </div>
-        <div id="semanas"></div>
-        <div class="dark-mode-toggle">
-            <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()">
-            <label for="darkModeToggle"></label>
-        </div>
+    <h1>Lançamentos</h1>
+    <p id="periodo"></p>
+
+    <form id="formLancamento">
+        <label for="data">Data:</label>
+        <input type="date" id="data" required>
+        <label for="valor">Valor (R$):</label>
+        <input type="number" id="valor" step="0.01" required>
+        <label for="local">Local:</label>
+        <input type="text" id="local" list="locaisList" required>
+        <datalist id="locaisList"></datalist>
+        <button type="submit">Adicionar</button>
+    </form>
+
+    <table id="tabelaLancamentos">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Valor (R$)</th>
+                <th>Local</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div id="editModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border:1px solid #ccc; z-index:1000;">
+        <h2>Editar Gasto</h2>
+        <label for="editData">Data:</label>
+        <input type="date" id="editData">
+        <label for="editValor">Valor (R$):</label>
+        <input type="number" id="editValor" step="0.01">
+        <label for="editLocal">Local:</label>
+        <input type="text" id="editLocal" list="locaisList">
+        <button onclick="salvarEdicao()">Salvar</button>
+        <button onclick="cancelarEdicao()">Cancelar</button>
     </div>
+
     <script src="lancamentos.js"></script>
 </body>
 </html>
