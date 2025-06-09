@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
     carregarGastos();
     atualizarSaldos();
+    carregarModoEscuro();
 });
+
 let ticket = parseFloat(localStorage.getItem("ticket")) || 0;
 let extra = parseFloat(localStorage.getItem("extra")) || 0;
 let dataInicio = localStorage.getItem("dataInicio");
@@ -77,4 +79,3 @@ function carregarModoEscuro() {
         toggle.checked = true;
     }
 }
-document.addEventListener("DOMContentLoaded", carregarModoEscuro);
