@@ -14,6 +14,14 @@ let metaSemanal = ticket / 4;
 let saldoTicket = ticket;
 let saldoExtra = extra;
 
+// Função para formatar data como dd/mm
+function formatarData(dataStr) {
+    const data = new Date(dataStr);
+    const dia = String(data.getDate()).padStart(2, '0');
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    return `${dia}/${mes}`;
+}
+
 function adicionarGasto() {
     const data = document.getElementById("data").value;
     const valor = parseFloat(document.getElementById("valor").value);
@@ -87,6 +95,6 @@ function exibirPeriodo() {
     endDate.setDate(endDate.getDate() + 28); // Período de 28 dias até o próximo pagamento
     const periodoDiv = document.getElementById("periodo");
     if (periodoDiv) {
-        periodoDiv.innerHTML = `<p>Período: ${startDate.toISOString().slice(0, 10)} a ${endDate.toISOString().slice(0, 10)}</p>`;
+        periodoDiv.innerHTML = `<p>Período: ${formatarData(startDate.toISOString().slice(0, 10))} a ${formatarData(endDate.toISOString().slice(0, 10))}</p>`;
     }
 }
