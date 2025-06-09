@@ -74,7 +74,7 @@ function carregarGastos() {
         return data.getMonth() + 1 === mes;
     }).forEach(gasto => {
         const linha = document.createElement("tr");
-        linha.innerHTML = `<td>${gasto.data}</td><td>${gasto.valor.toFixed(2)}</td><td>${gasto.local}</td>`;
+        linha.innerHTML = `<td>${formatarData(gasto.data)}</td><td>${gasto.valor.toFixed(2)}</td><td>${gasto.local}</td>`;
         corpoTabela.appendChild(linha);
     });
 }
@@ -110,7 +110,7 @@ function exibirPeriodo() {
     const startDate = new Date(localStorage.getItem("dataInicio") || new Date().toISOString().slice(0, 10));
     const endDate = new Date(startDate);
     endDate.setDate(endDate.getDate() + 28); // Período de 28 dias até o próximo pagamento
-    const endDateAjustada = ajustarDiaUtilAnterior(endDate);
+    const endDateAjustada = ajustarDiaUtilAnterior(endDate); // Ajustar apenas o fim
     const periodoDiv = document.getElementById("periodo");
     if (periodoDiv) {
         periodoDiv.innerHTML = `<p>Período: ${formatarData(startDate.toISOString().slice(0, 10))} a ${formatarData(endDateAjustada.toISOString().slice(0, 10))}</p>`;
