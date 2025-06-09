@@ -117,14 +117,41 @@ th {
     background-color: #f2f2f2;
 }
 .dark-mode th {
-    background-color: #555; /* Fundo mais claro no modo escuro */
-    color: #fff; /* Fonte branca para legibilidade */
+    background-color: #555;
+    color: #fff;
 }
 .saldos {
     margin-top: 20px;
 }
 .saldos p {
     margin: 5px 0;
+}
+.semana {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.dark-mode .semana {
+    background: #444;
+    border-color: #666;
+}
+.semana h3 {
+    margin-top: 0;
+}
+.semana table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+.semana th, .semana td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+.dark-mode .semana th {
+    background-color: #666;
+    color: #fff;
 }
 @media (max-width: 600px) {
     .container {
