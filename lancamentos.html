@@ -9,7 +9,6 @@
 <body>
     <div class="container">
         <h1>Lançamentos do Período</h1>
-        <div id="periodo"></div>
         <div class="form">
             <label for="data">Data:</label>
             <input type="date" id="data">
@@ -19,7 +18,27 @@
             <input type="text" id="local">
             <button onclick="adicionarGasto()">Adicionar Gasto</button>
         </div>
-        <div id="semanas"></div>
+        <table id="tabelaGastos">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Valor (R$)</th>
+                    <th>Local</th>
+                </tr>
+            </thead>
+            <tbody id="corpoTabela"></tbody>
+        </table>
+        <div class="saldos">
+            <h2>Saldos</h2>
+            <p>Meta Semanal: R$ <span id="metaSemanal">0.00</span></p>
+            <p>Saldo Ticket: R$ <span id="saldoTicket">0.00</span></p>
+            <p>Saldo Extra: R$ <span id="saldoExtra">0.00</span></p>
+            <p>Saldo Total Mensal: R$ <span id="saldoMensal">0.00</span></p>
+        </div>
+        <div class="dark-mode-toggle">
+            <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()">
+            <label for="darkModeToggle"></label>
+        </div>
     </div>
     <script src="lancamentos.js"></script>
 </body>
