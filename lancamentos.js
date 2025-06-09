@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     carregarGastos();
     atualizarSaldos();
     carregarModoEscuro();
+    exibirPeriodo();
 });
 
 let ticket = parseFloat(localStorage.getItem("ticket")) || 0;
@@ -77,5 +78,15 @@ function carregarModoEscuro() {
     if (isDarkMode) {
         body.classList.add("dark-mode");
         toggle.checked = true;
+    }
+}
+
+function exibirPeriodo() {
+    const startDate = new Date(localStorage.getItem("dataInicio") || new Date().toISOString().slice(0, 10));
+    const endDate = new Date(startDate);
+    endDate.setDate(endDate.getDate() + 28); // Período de 28 dias até o próximo pagamento
+    const periodoDiv = document.getElementById("periodo");
+    if (periodoDiv) {
+        periodoDiv.innerHTML = `<p>Período: ${startDate.toISOString().slice(0, 10)} a ${endDate.toISOString().slice(0, 10)}</p>`;
     }
 }
