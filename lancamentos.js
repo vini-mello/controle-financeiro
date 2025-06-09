@@ -11,7 +11,7 @@ let extra = parseFloat(localStorage.getItem("extra")) || 0;
 let dataInicio = localStorage.getItem("dataInicio");
 let mes = parseInt(localStorage.getItem("mes")) || 1;
 let gastos = JSON.parse(localStorage.getItem("gastos")) || [];
-let metaSemanal = ticket / 4;
+let metaSemanal = ticket / 4; // Ajustar para o número correto de semanas depois
 let saldoTicket = ticket;
 let saldoExtra = extra;
 
