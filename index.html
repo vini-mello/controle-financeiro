@@ -1,1 +1,49 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Configuração - Controle Financeiro</title><link rel="stylesheet" href="styles.css"></head><body><div class="container"><h1>Configuração do Período</h1><div class="form"><div class="row"><div class="field"><label for="mes">Mês:</label><select id="mes"><option value="1">Janeiro</option><option value="2">Fevereiro</option><option value="3">Março</option><option value="4">Abril</option><option value="5">Maio</option><option value="6">Junho</option><option value="7">Julho</option><option value="8">Agosto</option><option value="9">Setembro</option><option value="10">Outubro</option><option value="11">Novembro</option><option value="12">Dezembro</option></select></div><div class="field"><label for="dataInicio">Início do Período:</label><input type="date" id="dataInicio"></div></div><label for="ticket">Valor do Ticket (R$):</label><input type="number" id="ticket" step="0.01" placeholder="Ex.: 1230.72"><label for="extra">Valor Extra (R$):</label><input type="number" id="extra" step="0.01" placeholder="Ex.: 176.00" onkeypress="if(event.keyCode===13)salvarEIrParaLancamentos()"><button onclick="salvarEIrParaLancamentos()">Salvar e Ver Lançamentos</button></div><div class="dark-mode-toggle"><input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()"><label for="darkModeToggle"></label></div></div><script src="script.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuração - Controle Financeiro</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Configuração do Período</h1>
+        <div class="form">
+            <div class="row">
+                <div class="field">
+                    <label for="mes">Mês:</label>
+                    <select id="mes">
+                        <option value="1">Janeiro</option>
+                        <option value="2">Fevereiro</option>
+                        <option value="3">Março</option>
+                        <option value="4">Abril</option>
+                        <option value="5">Maio</option>
+                        <option value="6">Junho</option>
+                        <option value="7">Julho</option>
+                        <option value="8">Agosto</option>
+                        <option value="9">Setembro</option>
+                        <option value="10">Outubro</option>
+                        <option value="11">Novembro</option>
+                        <option value="12">Dezembro</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="dataInicio">Início do Período:</label>
+                    <input type="date" id="dataInicio">
+                </div>
+            </div>
+            <label for="ticket">Valor do Ticket (R$):</label>
+            <input type="number" id="ticket" step="0.01" placeholder="Ex.: 1230.72">
+            <label for="extra">Valor Extra (R$):</label>
+            <input type="number" id="extra" step="0.01" placeholder="Ex.: 176.00" onkeypress="if(event.keyCode===13)salvarEIrParaLancamentos()">
+            <button onclick="salvarEIrParaLancamentos()">Salvar e Ver Lançamentos</button>
+        </div>
+        <div class="dark-mode-toggle">
+            <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()">
+            <label for="darkModeToggle"></label>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
