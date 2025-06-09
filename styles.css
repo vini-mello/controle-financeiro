@@ -116,6 +116,10 @@ th, td {
 th {
     background-color: #f2f2f2;
 }
+.dark-mode th {
+    background-color: #555; /* Fundo mais claro no modo escuro */
+    color: #fff; /* Fonte branca para legibilidade */
+}
 .saldos {
     margin-top: 20px;
 }
