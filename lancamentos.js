@@ -30,7 +30,7 @@ function isDiaUtil(data) {
     return diaSemana !== 0 && diaSemana !== 6;
 }
 
-// Ajustar para o dia útil anterior se necessário
+// Ajustar para o dia útil anterior se necessário (opcional, não será usado no cálculo do período)
 function ajustarDiaUtilAnterior(data) {
     let dataAjustada = new Date(data);
     while (!isDiaUtil(dataAjustada)) {
@@ -139,11 +139,10 @@ function exibirPeriodo() {
     }
     const startDate = new Date(startDateStr);
     const endDate = new Date(startDate);
-    endDate.setDate(endDate.getDate() + 28);
-    const endDateAjustada = ajustarDiaUtilAnterior(endDate);
+    endDate.setDate(endDate.getDate() + 28); // Calcula exatamente 28 dias sem ajuste
     const periodoDiv = document.getElementById("periodo");
     if (periodoDiv) {
-        periodoDiv.innerHTML = `<p>Período: ${formatarData(startDateStr)} a ${formatarData(endDateAjustada.toISOString().slice(0, 10))}</p>`;
+        periodoDiv.innerHTML = `<p>Período: ${formatarData(startDateStr)} a ${formatarData(endDate.toISOString().slice(0, 10))}</p>`;
     } else {
         console.error("Elemento #periodo não encontrado no HTML.");
     }
@@ -161,9 +160,8 @@ function exibirSemanas() {
 
     const startDate = new Date(localStorage.getItem("dataInicio") || new Date().toISOString().slice(0, 10));
     const endDate = new Date(startDate);
-    endDate.setDate(endDate.getDate() + 28);
-    const endDateAjustada = ajustarDiaUtilAnterior(endDate);
-    const daysInPeriod = Math.ceil((endDateAjustada - startDate) / (1000 * 60 * 60 * 24)) + 1;
+    endDate.setDate(endDate.getDate() + 28); // Período fixo de 28 dias
+    const daysInPeriod = 28; // Forçar 28 dias
     const numberOfWeeks = 4; // Forçar 4 semanas
     const weeklyTarget = (ticket + extra) / numberOfWeeks;
 
@@ -174,7 +172,7 @@ function exibirSemanas() {
 
         const weekEnd = new Date(weekStart);
         weekEnd.setDate(weekEnd.getDate() + 6);
-        if (weekEnd > endDateAjustada) weekEnd = endDateAjustada;
+        if (weekEnd > endDate) weekEnd = endDate;
         const weekEndStr = weekEnd.toISOString().slice(0, 10);
 
         const gastosSemana = gastos.filter(gasto => {
