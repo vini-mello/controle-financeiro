@@ -80,12 +80,12 @@ function carregarGastos() {
     if (!corpoTabela) return;
 
     corpoTabela.innerHTML = "";
-    const startDate = new Date(localStorage.getItem("dataInicio"));
+    const startDate = new Date(localStorage.getItem("dataInicio") + "T00:00:00"); // Forçar horário inicial
     const endDate = new Date(startDate);
     endDate.setDate(endDate.getDate() + 28);
 
     gastos.filter(gasto => {
-        const data = new Date(gasto.data);
+        const data = new Date(gasto.data + "T00:00:00"); // Garantir consistência
         return data >= startDate && data <= endDate;
     }).forEach(gasto => {
         const linha = document.createElement("tr");
@@ -137,12 +137,14 @@ function exibirPeriodo() {
         console.error("Data de início não encontrada no LocalStorage.");
         return;
     }
-    const startDate = new Date(startDateStr);
+    const startDate = new Date(startDateStr + "T00:00:00"); // Forçar horário inicial para evitar deslocamento
     const endDate = new Date(startDate);
-    endDate.setDate(endDate.getDate() + 28); // Calcula exatamente 28 dias sem ajuste
+    endDate.setDate(endDate.getDate() + 28); // Calcula exatamente 28 dias
+    console.log("Data de início raw:", startDateStr); // Log para depuração
+    console.log("Período calculado:", formatarData(startDate.toISOString()) + " a " + formatarData(endDate.toISOString()));
     const periodoDiv = document.getElementById("periodo");
     if (periodoDiv) {
-        periodoDiv.innerHTML = `<p>Período: ${formatarData(startDateStr)} a ${formatarData(endDate.toISOString().slice(0, 10))}</p>`;
+        periodoDiv.innerHTML = `<p>Período: ${formatarData(startDate.toISOString())} a ${formatarData(endDate.toISOString())}</p>`;
     } else {
         console.error("Elemento #periodo não encontrado no HTML.");
     }
@@ -158,10 +160,10 @@ function exibirSemanas() {
     }
     semanasDiv.innerHTML = "";
 
-    const startDate = new Date(localStorage.getItem("dataInicio") || new Date().toISOString().slice(0, 10));
+    const startDateStr = localStorage.getItem("dataInicio") || new Date().toISOString().slice(0, 10);
+    const startDate = new Date(startDateStr + "T00:00:00");
     const endDate = new Date(startDate);
-    endDate.setDate(endDate.getDate() + 28); // Período fixo de 28 dias
-    const daysInPeriod = 28; // Forçar 28 dias
+    endDate.setDate(endDate.getDate() + 28);
     const numberOfWeeks = 4; // Forçar 4 semanas
     const weeklyTarget = (ticket + extra) / numberOfWeeks;
 
@@ -176,7 +178,7 @@ function exibirSemanas() {
         const weekEndStr = weekEnd.toISOString().slice(0, 10);
 
         const gastosSemana = gastos.filter(gasto => {
-            const dataGasto = new Date(gasto.data);
+            const dataGasto = new Date(gasto.data + "T00:00:00");
             return dataGasto >= weekStart && dataGasto <= weekEnd;
         });
         const totalSpent = gastosSemana.reduce((sum, gasto) => sum + gasto.valor, 0);
