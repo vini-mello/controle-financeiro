@@ -7,15 +7,14 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 let ticket = parseFloat(localStorage.getItem("ticket")) || 0;
-let extra = parseFloat(localStorage.getItem("extra")) || 0;
 let dataInicio = localStorage.getItem("dataInicio");
+let dataFim = localStorage.getItem("dataFim");
 let mes = parseInt(localStorage.getItem("mes")) || 1;
 let gastos = JSON.parse(localStorage.getItem("gastos")) || [];
-let metaSemanal = (ticket + extra) / 4; // Meta semanal baseada em ticket + extra dividido por 4
+let metaSemanal = ticket / 4; // Ajustar conforme número de semanas
 let saldoTicket = ticket;
-let saldoExtra = extra;
 
-// Função para formatar data como dd/mm/aaaa
+// Função para formatar data como dd/mm/yyyy
 function formatarData(dataStr) {
     const data = new Date(dataStr);
     const dia = String(data.getDate()).padStart(2, '0');
@@ -24,23 +23,15 @@ function formatarData(dataStr) {
     return `${dia}/${mes}/${ano}`;
 }
 
-// Função para verificar se é dia útil (exclui sábados e domingos)
-function isDiaUtil(data) {
-    const diaSemana = data.getDay();
-    return diaSemana !== 0 && diaSemana !== 6;
-}
-
-// Ajustar para o dia útil anterior se necessário (opcional, não será usado no cálculo do período)
-function ajustarDiaUtilAnterior(data) {
-    let dataAjustada = new Date(data);
-    while (!isDiaUtil(dataAjustada)) {
-        dataAjustada.setDate(dataAjustada.getDate() - 1);
-    }
-    return dataAjustada;
+// Função para calcular número de semanas
+function calcularSemanas(inicio, fim) {
+    const diffTime = Math.abs(new Date(fim) - new Date(inicio));
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return Math.ceil(diffDays / 7);
 }
 
 function adicionarGasto() {
-    const data = document.getElementById("data").value;
+    const data = document.getElementById("data").value; // Usa a data como string
     const valor = parseFloat(document.getElementById("valor").value);
     const local = document.getElementById("local").value;
 
@@ -49,12 +40,8 @@ function adicionarGasto() {
         return;
     }
 
-    const dataGasto = new Date(data);
-    const startDate = new Date(localStorage.getItem("dataInicio"));
-    const endDate = new Date(startDate);
-    endDate.setDate(endDate.getDate() + 28);
-
-    if (dataGasto < startDate || dataGasto > endDate) {
+    const dataGasto = data; // Mantém a data como inserida
+    if (new Date(data) < new Date(dataInicio) || new Date(data) > new Date(dataFim)) {
         alert("Este gasto não pertence ao período selecionado!");
         return;
     }
@@ -62,12 +49,11 @@ function adicionarGasto() {
     if (saldoTicket >= valor) {
         saldoTicket -= valor;
     } else {
-        const resto = valor - saldoTicket;
-        saldoTicket = 0;
-        saldoExtra -= resto;
+        alert("Saldo insuficiente!");
+        return;
     }
 
-    const gasto = { data, valor, local };
+    const gasto = { data: data, valor, local };
     gastos.push(gasto);
     localStorage.setItem("gastos", JSON.stringify(gastos));
     carregarGastos();
@@ -80,14 +66,7 @@ function carregarGastos() {
     if (!corpoTabela) return;
 
     corpoTabela.innerHTML = "";
-    const startDate = new Date(localStorage.getItem("dataInicio") + "T00:00:00"); // Forçar horário inicial
-    const endDate = new Date(startDate);
-    endDate.setDate(endDate.getDate() + 28);
-
-    gastos.filter(gasto => {
-        const data = new Date(gasto.data + "T00:00:00"); // Garantir consistência
-        return data >= startDate && data <= endDate;
-    }).forEach(gasto => {
+    gastos.forEach(gasto => {
         const linha = document.createElement("tr");
         linha.innerHTML = `
             <td>${formatarData(gasto.data)}</td>
@@ -101,13 +80,10 @@ function carregarGastos() {
 function atualizarSaldos() {
     const saldosDiv = document.querySelector(".saldos");
     if (saldosDiv) {
-        const saldoMensal = saldoTicket + saldoExtra;
         saldosDiv.innerHTML = `
             <h2>Saldos</h2>
             <p>Meta Semanal: R$ ${metaSemanal.toFixed(2)}</p>
             <p>Saldo Ticket: R$ ${saldoTicket.toFixed(2)}</p>
-            <p>Saldo Extra: R$ ${saldoExtra.toFixed(2)}</p>
-            <p>Saldo Total Mensal: R$ ${saldoMensal.toFixed(2)}</p>
         `;
     }
 }
@@ -132,21 +108,9 @@ function carregarModoEscuro() {
 }
 
 function exibirPeriodo() {
-    const startDateStr = localStorage.getItem("dataInicio");
-    if (!startDateStr) {
-        console.error("Data de início não encontrada no LocalStorage.");
-        return;
-    }
-    const startDate = new Date(startDateStr + "T00:00:00"); // Forçar horário inicial para evitar deslocamento
-    const endDate = new Date(startDate);
-    endDate.setDate(endDate.getDate() + 28); // Calcula exatamente 28 dias
-    console.log("Data de início raw:", startDateStr); // Log para depuração
-    console.log("Período calculado:", formatarData(startDate.toISOString()) + " a " + formatarData(endDate.toISOString()));
     const periodoDiv = document.getElementById("periodo");
-    if (periodoDiv) {
-        periodoDiv.innerHTML = `<p>Período: ${formatarData(startDate.toISOString())} a ${formatarData(endDate.toISOString())}</p>`;
-    } else {
-        console.error("Elemento #periodo não encontrado no HTML.");
+    if (periodoDiv && dataInicio && dataFim) {
+        periodoDiv.innerHTML = `<p>Período: ${formatarData(dataInicio)} a ${formatarData(dataFim)}</p>`;
     }
 }
 
@@ -160,59 +124,43 @@ function exibirSemanas() {
     }
     semanasDiv.innerHTML = "";
 
-    const startDateStr = localStorage.getItem("dataInicio") || new Date().toISOString().slice(0, 10);
-    const startDate = new Date(startDateStr + "T00:00:00");
-    const endDate = new Date(startDate);
-    endDate.setDate(endDate.getDate() + 28);
-    const numberOfWeeks = 4; // Forçar 4 semanas
-    const weeklyTarget = (ticket + extra) / numberOfWeeks;
+    const numeroSemanas = calcularSemanas(dataInicio, dataFim);
+    metaSemanal = ticket / numeroSemanas; // Ajusta a meta semanal
+    const diffDays = Math.ceil((new Date(dataFim) - new Date(dataInicio)) / (1000 * 60 * 60 * 24));
+    const diasPorSemana = Math.floor(diffDays / numeroSemanas);
 
-    for (let k = 0; k < numberOfWeeks; k++) {
-        const weekStart = new Date(startDate);
-        weekStart.setDate(startDate.getDate() + 7 * k);
-        const weekStartStr = weekStart.toISOString().slice(0, 10);
-
+    for (let k = 0; k < numeroSemanas; k++) {
+        const weekStart = new Date(dataInicio);
+        weekStart.setDate(weekStart.getDate() + k * diasPorSemana);
         const weekEnd = new Date(weekStart);
-        weekEnd.setDate(weekEnd.getDate() + 6);
-        if (weekEnd > endDate) weekEnd = endDate;
+        weekEnd.setDate(weekEnd.getDate() + diasPorSemana - 1);
+        if (weekEnd > new Date(dataFim)) weekEnd.setDate(new Date(dataFim).getDate());
+
+        const weekStartStr = weekStart.toISOString().slice(0, 10);
         const weekEndStr = weekEnd.toISOString().slice(0, 10);
 
         const gastosSemana = gastos.filter(gasto => {
-            const dataGasto = new Date(gasto.data + "T00:00:00");
+            const dataGasto = new Date(gasto.data);
             return dataGasto >= weekStart && dataGasto <= weekEnd;
         });
         const totalSpent = gastosSemana.reduce((sum, gasto) => sum + gasto.valor, 0);
-        const balance = weeklyTarget - totalSpent;
+        const balance = (metaSemanal * (k + 1) / numeroSemanas) - totalSpent;
 
         const weekDiv = document.createElement("div");
         weekDiv.className = "semana";
         weekDiv.innerHTML = `
             <h3>Semana ${k + 1}: ${formatarData(weekStartStr)} a ${formatarData(weekEndStr)}</h3>
-            <p>Meta Semanal: R$ ${weeklyTarget.toFixed(2)}</p>
+            <p>Meta Semanal: R$ ${metaSemanal.toFixed(2)}</p>
             <table>
-                <thead>
-                    <tr>
-                        <th>Data</th>
-                        <th>Valor (R$)</th>
-                        <th>Local</th>
-                    </tr>
-                </thead>
+                <thead><tr><th>Data</th><th>Valor (R$)</th><th>Local</th></tr></thead>
                 <tbody>
-                    ${gastosSemana.length > 0 
-                        ? gastosSemana.map(gasto => `
-                            <tr>
-                                <td>${formatarData(gasto.data)}</td>
-                                <td>${gasto.valor.toFixed(2)}</td>
-                                <td>${gasto.local}</td>
-                            </tr>
-                        `).join('')
-                        : '<tr><td colspan="3">Nenhum lançamento</td></tr>'
-                    }
+                    ${gastosSemana.map(gasto => `
+                        <tr><td>${formatarData(gasto.data)}</td><td>${gasto.valor.toFixed(2)}</td><td>${gasto.local}</td></tr>
+                    `).join('') || '<tr><td colspan="3">Nenhum lançamento</td></tr>'}
                 </tbody>
             </table>
-            <p>Total Gasto da Semana: R$ ${totalSpent.toFixed(2)}</p>
-            <p>Saldo da Semana: R$ ${balance.toFixed(2)}</p>
-            <p>Data de Fechamento: ${formatarData(weekEndStr)}</p>
+            <p>Total Gasto: R$ ${totalSpent.toFixed(2)}</p>
+            <p>Saldo: R$ ${balance.toFixed(2)}</p>
         `;
         semanasDiv.appendChild(weekDiv);
     }
