@@ -1,97 +1,127 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-    transition: background-color 0.3s;
-}
-body.dark-mode {
-    background-color: #333;
-    color: #f4f4f4;
-}
-.container {
-    width: 80%;
-    margin: 20px auto;
-    padding: 20px;
-}
-h1 {
-    text-align: center;
-    color: #333;
-}
-h1.dark-mode {
-    color: #f4f4f4;
-}
-.form-row {
-    display: flex;
-    gap: 20px;
-    background: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-.form-row.dark-mode {
-    background: #444;
-}
-.field {
-    flex: 1;
-    min-width: 0; /* Garante que os campos se ajustem */
-}
-label {
-    display: block;
-    margin-bottom: 5px;
-}
-input[type="date"], input[type="number"], select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-input.dark-mode, select.dark-mode {
-    background-color: #555;
-    color: #f4f4f4;
-    border-color: #666;
-}
-button {
-    padding: 10px 20px;
-    background: #5cb85c;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 20px; /* Ajuste para alinhamento */
-}
-button:hover {
-    background: #4cae4c;
-}
-.dark-mode-toggle {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-}
-.dark-mode-toggle input[type="checkbox"] {
-    display: none;
-}
-.dark-mode-toggle label {
-    cursor: pointer;
-    width: 50px;
-    height: 50px;
-    background: #ccc;
-    border-radius: 50%;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.3s;
-}
-.dark-mode-toggle label:before {
-    content: "☀️";
-    font-size: 30px;
-    transition: none;
-}
-body.dark-mode .dark-mode-toggle label {
-    background: #333;
-}
-body.dark-mode .dark-mode-toggle label:before {
-    content: "🌙";
-}
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      transition: background-color 0.3s;
+  }
+  body.dark-mode {
+      background-color: #333;
+      color: #f4f4f4;
+  }
+  .container {
+      width: 80%;
+      margin: 20px auto;
+      padding: 20px;
+  }
+  h1 {
+      text-align: center;
+      color: #333;
+  }
+  h1.dark-mode {
+      color: #f4f4f4;
+  }
+  .form-row {
+      display: flex;
+      gap: 20px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  .form-row.dark-mode {
+      background: #444;
+  }
+  .field {
+      flex: 1;
+      min-width: 0;
+  }
+  label {
+      display: block;
+      margin-bottom: 5px;
+  }
+  input[type="date"], input[type="number"], select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+  }
+  input.dark-mode, select.dark-mode {
+      background-color: #555;
+      color: #f4f4f4;
+      border-color: #666;
+  }
+  button {
+      padding: 10px 20px;
+      background: #5cb85c;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 20px;
+  }
+  button:hover {
+      background: #4cae4c;
+  }
+  .dark-mode-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+  }
+  .dark-mode-toggle input[type="checkbox"] {
+      display: none;
+  }
+  .dark-mode-toggle label {
+      cursor: pointer;
+      width: 50px;
+      height: 50px;
+      background: #ccc;
+      border-radius: 50%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+  }
+  .dark-mode-toggle label:before {
+      content: "☀️";
+      font-size: 30px;
+      transition: none;
+  }
+  body.dark-mode .dark-mode-toggle label {
+      background: #333;
+  }
+  body.dark-mode .dark-mode-toggle label:before {
+      content: "🌙";
+  }
+  .semana {
+      margin-bottom: 20px;
+      padding: 10px;
+      background: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  }
+  .semana.dark-mode {
+      background: #444;
+  }
+  .week-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+  }
+  .week-table th, .week-table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+  }
+  .week-table th {
+      background-color: #f4f4f4;
+  }
+  .week-table.dark-mode th {
+      background-color: #555;
+      color: #f4f4f4;
+  }
+  .week-table.dark-mode td {
+      border-color: #666;
+  }
