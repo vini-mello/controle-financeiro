@@ -16,14 +16,9 @@ let saldoTicket = ticket;
 
 // Função para formatar data como dd/mm/yyyy
 function formatarData(dataStr) {
-    const data = new Date(dataStr);
-    const dia = String(data.getDate()).padStart(2, '0');
-    const mes = String(data.getMonth() + 1).padStart(2, '0');
-    const ano = data.getFullYear();
-    return `${dia}/${mes}/${ano}`;
+    return dataStr.split('-').reverse().join('/'); // Ex.: "2025-06-24" -> "24/06/2025"
 }
 
-// Função para calcular número de semanas
 function calcularSemanas(inicio, fim) {
     const diffTime = Math.abs(new Date(fim) - new Date(inicio));
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -40,8 +35,8 @@ function adicionarGasto() {
         return;
     }
 
-    const dataGasto = data; // Mantém a data como inserida
-    if (new Date(data) < new Date(dataInicio) || new Date(data) > new Date(dataFim)) {
+    // Validação do período usando strings de data
+    if (data < dataInicio || data > dataFim) {
         alert("Este gasto não pertence ao período selecionado!");
         return;
     }
@@ -53,7 +48,7 @@ function adicionarGasto() {
         return;
     }
 
-    const gasto = { data: data, valor, local };
+    const gasto = { data, valor, local }; // Salva a data como inserida
     gastos.push(gasto);
     localStorage.setItem("gastos", JSON.stringify(gastos));
     carregarGastos();
