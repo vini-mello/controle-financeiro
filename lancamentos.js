@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Função para formatar data como dd/mm/yyyy
   function formatarData(dataStr) {
-      return dataStr; // Usa a data como string original (ex.: "2025-06-24")
+      return dataStr; // Usa a data como string original (ex.: "2025-07-01")
   }
 
   function calcularSemanas(inicio, fim) {
@@ -36,7 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
       }
 
-      // Validação do período usando strings de data
       if (data < dataInicio || data > dataFim) {
           alert("Este gasto não pertence ao período selecionado!");
           return;
@@ -49,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
       }
 
-      const gasto = { data, valor, local }; // Salva a data como inserida
+      const gasto = { data, valor, local };
       gastos.push(gasto);
       localStorage.setItem("gastos", JSON.stringify(gastos));
       limparCampos();
@@ -64,7 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("local").value = "";
   }
 
-  // Adiciona evento para submit com Enter no campo Local
   document.getElementById("local").addEventListener("keypress", function(e) {
       if (e.key === "Enter") {
           e.preventDefault();
@@ -73,20 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function carregarGastos() {
-      const corpoTabela = document.getElementById("corpoTabela");
-      if (!corpoTabela) return;
-
-      corpoTabela.innerHTML = "";
-      gastos.forEach((gasto, index) => {
-          const linha = document.createElement("tr");
-          linha.innerHTML = `
-              <td>${formatarData(gasto.data)}</td>
-              <td>${gasto.valor.toFixed(2)}</td>
-              <td>${gasto.local}</td>
-              <td><button onclick="excluirGasto(${index})">Excluir</button></td>
-          `;
-          corpoTabela.appendChild(linha);
-      });
+      // Esta função agora será usada apenas para depuração ou ajustes futuros, se necessário
   }
 
   function excluirGasto(index) {
@@ -174,11 +159,16 @@ document.addEventListener("DOMContentLoaded", () => {
               <h3>Semana ${k + 1}: ${formatarData(weekStartStr)} a ${formatarData(weekEndStr)}</h3>
               <p>Meta Semanal: R$ ${metaSemanal.toFixed(2)}</p>
               <table>
-                  <thead><tr><th>Data</th><th>Valor (R$)</th><th>Local</th></tr></thead>
+                  <thead><tr><th>Data</th><th>Valor (R$)</th><th>Local</th><th>Ação</th></tr></thead>
                   <tbody>
-                      ${gastosSemana.map(gasto => `
-                          <tr><td>${formatarData(gasto.data)}</td><td>${gasto.valor.toFixed(2)}</td><td>${gasto.local}</td></tr>
-                      `).join('') || '<tr><td colspan="3">Nenhum lançamento</td></tr>'}
+                      ${gastosSemana.map((gasto, index) => `
+                          <tr>
+                              <td>${formatarData(gasto.data)}</td>
+                              <td>${gasto.valor.toFixed(2)}</td>
+                              <td>${gasto.local}</td>
+                              <td><button onclick="excluirGasto(${gastos.indexOf(gasto)})">Excluir</button></td>
+                          </tr>
+                      `).join('') || '<tr><td colspan="4">Nenhum lançamento</td></tr>'}
                   </tbody>
               </table>
               <p>Total Gasto: R$ ${totalSpent.toFixed(2)}</p>
