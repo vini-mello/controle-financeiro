@@ -17,7 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Função para formatar data como dd/mm/yyyy
   function formatarData(dataStr) {
-      return dataStr; // Usa a data como string original (ex.: "2025-07-01")
+      const [ano, mes, dia] = dataStr.split('-');
+      return `${dia}/${mes}/${ano}`; // Converte "2025-07-01" para "01/07/2025"
   }
 
   function calcularSemanas(inicio, fim) {
@@ -71,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function carregarGastos() {
-      // Esta função agora será usada apenas para depuração ou ajustes futuros, se necessário
+      // Função mantida para compatibilidade, mas não usada diretamente
   }
 
   function excluirGasto(index) {
@@ -136,6 +137,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const diffDays = Math.ceil((new Date(dataFim) - new Date(dataInicio)) / (1000 * 60 * 60 * 24));
       const diasPorSemana = Math.floor(diffDays / numeroSemanas);
 
+      console.log(`Número de semanas: ${numeroSemanas}, Dias totais: ${diffDays}, Dias por semana: ${diasPorSemana}`);
+
       for (let k = 0; k < numeroSemanas; k++) {
           const weekStart = new Date(dataInicio);
           weekStart.setDate(weekStart.getDate() + k * diasPorSemana);
@@ -148,6 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           const gastosSemana = gastos.filter(gasto => {
               const dataGasto = new Date(gasto.data);
+              console.log(`Filtrando gasto: ${gasto.data} (converte para ${dataGasto}) entre ${weekStart} e ${weekEnd}`);
               return dataGasto >= weekStart && dataGasto <= weekEnd;
           });
           const totalSpent = gastosSemana.reduce((sum, gasto) => sum + gasto.valor, 0);
@@ -158,7 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
           weekDiv.innerHTML = `
               <h3>Semana ${k + 1}: ${formatarData(weekStartStr)} a ${formatarData(weekEndStr)}</h3>
               <p>Meta Semanal: R$ ${metaSemanal.toFixed(2)}</p>
-              <table>
+              <table class="week-table">
                   <thead><tr><th>Data</th><th>Valor (R$)</th><th>Local</th><th>Ação</th></tr></thead>
                   <tbody>
                       ${gastosSemana.map((gasto, index) => `
