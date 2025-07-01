@@ -15,8 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let metaSemanal = ticket / 4;
   let saldoTicket = ticket;
 
+  // Função para formatar data como dd/mm/yyyy
   function formatarData(dataStr) {
-      return dataStr.split('-').reverse().join('/'); // "2025-06-24" -> "24/06/2025"
+      return dataStr; // Usa a data como string original (ex.: "2025-06-24")
   }
 
   function calcularSemanas(inicio, fim) {
@@ -35,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
       }
 
+      // Validação do período usando strings de data
       if (data < dataInicio || data > dataFim) {
           alert("Este gasto não pertence ao período selecionado!");
           return;
@@ -47,13 +49,28 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
       }
 
-      const gasto = { data, valor, local };
+      const gasto = { data, valor, local }; // Salva a data como inserida
       gastos.push(gasto);
       localStorage.setItem("gastos", JSON.stringify(gastos));
+      limparCampos();
       carregarGastos();
       atualizarSaldos();
       exibirSemanas();
   }
+
+  function limparCampos() {
+      document.getElementById("data").value = "";
+      document.getElementById("valor").value = "";
+      document.getElementById("local").value = "";
+  }
+
+  // Adiciona evento para submit com Enter no campo Local
+  document.getElementById("local").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+          e.preventDefault();
+          adicionarGasto();
+      }
+  });
 
   function carregarGastos() {
       const corpoTabela = document.getElementById("corpoTabela");
