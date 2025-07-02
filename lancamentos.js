@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function carregarGastos() {
-      // Função mantida para compatibilidade, mas não usada diretamente
+      // Função mantida para compatibilidade
   }
 
   function excluirGasto(index) {
@@ -82,6 +82,33 @@ document.addEventListener("DOMContentLoaded", () => {
           carregarGastos();
           atualizarSaldos();
           exibirSemanas();
+      }
+  }
+
+  function editarGasto(index) {
+      const gasto = gastos[index];
+      const novaData = prompt("Nova data (AAAA-MM-DD):", gasto.data);
+      const novoValor = parseFloat(prompt("Novo valor (R$):", gasto.valor));
+      const novoLocal = prompt("Novo local:", gasto.local);
+
+      if (novaData && !isNaN(novoValor) && novoLocal) {
+          if (new Date(novaData) < new Date(dataInicio) || new Date(novaData) > new Date(dataFim)) {
+              alert("A data deve estar dentro do período selecionado!");
+              return;
+          }
+
+          // Ajusta o saldoTicket considerando a diferença
+          const diferenca = novoValor - gasto.valor;
+          if (saldoTicket + gasto.valor >= novoValor) {
+              saldoTicket -= diferenca;
+          } else {
+              alert("Saldo insuficiente para o novo valor!");
+              return;
+          }
+
+          gastos[index] = { data: novaData, valor: novoValor, local: novoLocal };
+          localStorage.setItem("gastos", JSON.stringify(gastos));
+          exibirSemanas(); // Atualiza apenas as semanas para refletir a edição
       }
   }
 
@@ -137,8 +164,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const diffDays = Math.ceil((new Date(dataFim) - new Date(dataInicio)) / (1000 * 60 * 60 * 24));
       const diasPorSemana = Math.floor(diffDays / numeroSemanas);
 
-      console.log(`Número de semanas: ${numeroSemanas}, Dias totais: ${diffDays}, Dias por semana: ${diasPorSemana}`);
-
       for (let k = 0; k < numeroSemanas; k++) {
           const weekStart = new Date(dataInicio);
           weekStart.setDate(weekStart.getDate() + k * diasPorSemana);
@@ -151,7 +176,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
           const gastosSemana = gastos.filter(gasto => {
               const dataGasto = new Date(gasto.data);
-              console.log(`Filtrando gasto: ${gasto.data} (converte para ${dataGasto}) entre ${weekStart} e ${weekEnd}`);
               return dataGasto >= weekStart && dataGasto <= weekEnd;
           });
           const totalSpent = gastosSemana.reduce((sum, gasto) => sum + gasto.valor, 0);
@@ -170,7 +194,10 @@ document.addEventListener("DOMContentLoaded", () => {
                               <td>${formatarData(gasto.data)}</td>
                               <td>${gasto.valor.toFixed(2)}</td>
                               <td>${gasto.local}</td>
-                              <td><button onclick="excluirGasto(${gastos.indexOf(gasto)})">Excluir</button></td>
+                              <td>
+                                  <button onclick="editarGasto(${gastos.indexOf(gasto)})">Editar</button>
+                                  <button onclick="excluirGasto(${gastos.indexOf(gasto)})">Excluir</button>
+                              </td>
                           </tr>
                       `).join('') || '<tr><td colspan="4">Nenhum lançamento</td></tr>'}
                   </tbody>
