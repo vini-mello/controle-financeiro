@@ -1,28 +1,28 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lançamentos - Controle Financeiro</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Lançamentos</h1>
-        <div id="periodo"></div>
-        <div class="saldos"></div>
-        <div id="semanas"></div>
-        <form id="formGasto" class="form-row">
-            <div class="field"><label for="data">Data:</label><input type="date" id="data" required></div>
-            <div class="field"><label for="valor">Valor (R$):</label><input type="number" id="valor" step="0.01" required></div>
-            <div class="field"><label for="local">Local:</label><input type="text" id="local" required></div>
-            <button type="button" onclick="adicionarGasto()">Adicionar</button>
-        </form>
-        <div class="dark-mode-toggle">
-            <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()">
-            <label for="darkModeToggle"></label>
-        </div>
-    </div>
-    <script src="lancamentos.js"></script>
-</body>
-</html>
+  <html lang="pt-BR">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Lançamentos - Controle Financeiro</title>
+      <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+      <div class="container">
+          <h1>Lançamentos</h1>
+          <div id="periodo"></div>
+          <form id="formGasto" class="form-row">
+              <div class="field"><label for="data">Data:</label><input type="date" id="data" required></div>
+              <div class="field"><label for="valor">Valor (R$):</label><input type="number" id="valor" step="0.01" required></div>
+              <div class="field"><label for="local">Local:</label><input type="text" id="local" required></div>
+              <button type="button" onclick="adicionarGasto()">Adicionar</button>
+          </form>
+          <div id="semanas"></div>
+          <div class="saldos"></div>
+          <div class="dark-mode-toggle">
+              <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()">
+              <label for="darkModeToggle"></label>
+          </div>
+      </div>
+      <script src="lancamentos.js"></script>
+  </body>
+  </html>
