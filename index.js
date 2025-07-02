@@ -7,7 +7,6 @@ document.getElementById('configForm').addEventListener('submit', function(e) {
       const dataInicioInput = document.getElementById('dataInicio');
       const dataFimInput = document.getElementById('dataFim');
 
-      // Remove qualquer estilo de erro anterior
       dataInicioInput.style.borderColor = '';
       dataFimInput.style.borderColor = '';
 
@@ -25,6 +24,17 @@ document.getElementById('configForm').addEventListener('submit', function(e) {
           window.location.href = 'lancamentos.html';
       } else {
           alert('Preencha todos os campos!');
+      }
+  });
+
+  document.getElementById('goToLancamentos').addEventListener('click', function() {
+      const mes = document.getElementById('mes').value;
+      if (mes) {
+          localStorage.setItem('mes', mes);
+          // Redireciona para lançamentos com o mês selecionado (período e ticket permanecem os últimos salvos)
+          window.location.href = 'lancamentos.html';
+      } else {
+          alert('Selecione um mês!');
       }
   });
 
