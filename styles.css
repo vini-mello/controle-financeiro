@@ -3,11 +3,12 @@ body {
       margin: 0;
       padding: 0;
       background-color: #f4f4f4;
-      transition: background-color 0.3s;
+      color: #333;
+      transition: background-color 0.3s, color 0.3s;
   }
   body.dark-mode {
       background-color: #333;
-      color: #f4f4f4;
+      color: #e0e0e0; /* Cor de texto mais legível no modo escuro */
   }
   .container {
       width: 80%;
@@ -19,7 +20,7 @@ body {
       color: #333;
   }
   h1.dark-mode {
-      color: #f4f4f4;
+      color: #e0e0e0; /* Título legível no modo escuro */
   }
   .form-row {
       display: flex;
@@ -31,6 +32,7 @@ body {
   }
   .form-row.dark-mode {
       background: #444;
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
   }
   .field {
       flex: 1;
@@ -39,6 +41,10 @@ body {
   label {
       display: block;
       margin-bottom: 5px;
+      color: #333;
+  }
+  label.dark-mode {
+      color: #e0e0e0; /* Labels legíveis no modo escuro */
   }
   input[type="date"], input[type="number"], select {
       width: 100%;
@@ -46,10 +52,12 @@ body {
       margin-bottom: 10px;
       border: 1px solid #ddd;
       border-radius: 4px;
+      background-color: #fff;
+      color: #333;
   }
   input.dark-mode, select.dark-mode {
       background-color: #555;
-      color: #f4f4f4;
+      color: #e0e0e0; /* Texto nos inputs legível */
       border-color: #666;
   }
   button {
@@ -63,6 +71,12 @@ body {
   }
   button:hover {
       background: #4cae4c;
+  }
+  .dark-mode button {
+      background: #4cae4c; /* Botão mais visível no modo escuro */
+  }
+  .dark-mode button:hover {
+      background: #5cb85c;
   }
   .dark-mode-toggle {
       position: absolute;
@@ -90,7 +104,7 @@ body {
       transition: none;
   }
   body.dark-mode .dark-mode-toggle label {
-      background: #333;
+      background: #555;
   }
   body.dark-mode .dark-mode-toggle label:before {
       content: "🌙";
@@ -104,6 +118,7 @@ body {
   }
   .semana.dark-mode {
       background: #444;
+      box-shadow: 0 0 5px rgba(255,255,255,0.1);
   }
   .week-table {
       width: 100%;
@@ -114,14 +129,15 @@ body {
       border: 1px solid #ddd;
       padding: 8px;
       text-align: left;
+      color: #333;
   }
   .week-table th {
       background-color: #f4f4f4;
   }
+  .week-table.dark-mode th, .week-table.dark-mode td {
+      border-color: #666;
+      color: #e0e0e0; /* Texto nas tabelas legível */
+  }
   .week-table.dark-mode th {
       background-color: #555;
-      color: #f4f4f4;
-  }
-  .week-table.dark-mode td {
-      border-color: #666;
   }
