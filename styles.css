@@ -8,7 +8,7 @@ body {
   }
   body.dark-mode {
       background-color: #333;
-      color: #e0e0e0; /* Cor de texto mais legível no modo escuro */
+      color: #e0e0e0;
   }
   .container {
       width: 80%;
@@ -20,7 +20,7 @@ body {
       color: #333;
   }
   h1.dark-mode {
-      color: #e0e0e0; /* Título legível no modo escuro */
+      color: #e0e0e0;
   }
   .form-row {
       display: flex;
@@ -44,7 +44,7 @@ body {
       color: #333;
   }
   label.dark-mode {
-      color: #e0e0e0; /* Labels legíveis no modo escuro */
+      color: #e0e0e0;
   }
   input[type="date"], input[type="number"], select {
       width: 100%;
@@ -57,7 +57,7 @@ body {
   }
   input.dark-mode, select.dark-mode {
       background-color: #555;
-      color: #e0e0e0; /* Texto nos inputs legível */
+      color: #e0e0e0;
       border-color: #666;
   }
   button {
@@ -73,7 +73,7 @@ body {
       background: #4cae4c;
   }
   .dark-mode button {
-      background: #4cae4c; /* Botão mais visível no modo escuro */
+      background: #4cae4c;
   }
   .dark-mode button:hover {
       background: #5cb85c;
@@ -115,10 +115,12 @@ body {
       background: #fff;
       border-radius: 5px;
       box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      color: #333;
   }
   .semana.dark-mode {
       background: #444;
       box-shadow: 0 0 5px rgba(255,255,255,0.1);
+      color: #fff; /* Texto branco no modo escuro */
   }
   .week-table {
       width: 100%;
@@ -136,7 +138,7 @@ body {
   }
   .week-table.dark-mode th, .week-table.dark-mode td {
       border-color: #666;
-      color: #e0e0e0; /* Texto nas tabelas legível */
+      color: #fff; /* Texto branco nas tabelas no modo escuro */
   }
   .week-table.dark-mode th {
       background-color: #555;
