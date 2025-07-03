@@ -8,7 +8,7 @@ body {
   }
   body.dark-mode {
       background-color: #333;
-      color: #e0e0e0;
+      color: #fff; /* Texto geral em branco no modo escuro */
   }
   .container {
       width: 80%;
@@ -20,7 +20,7 @@ body {
       color: #333;
   }
   h1.dark-mode {
-      color: #e0e0e0;
+      color: #fff;
   }
   .form-row {
       display: flex;
@@ -31,8 +31,9 @@ body {
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
   }
   .form-row.dark-mode {
-      background: #444;
+      background: #444; /* Fundo escuro para o formulário */
       box-shadow: 0 0 10px rgba(255,255,255,0.1);
+      color: #fff; /* Texto branco para legibilidade */
   }
   .field {
       flex: 1;
@@ -44,7 +45,7 @@ body {
       color: #333;
   }
   label.dark-mode {
-      color: #e0e0e0;
+      color: #fff; /* Labels brancas no modo escuro */
   }
   input[type="date"], input[type="number"], select {
       width: 100%;
@@ -57,7 +58,7 @@ body {
   }
   input.dark-mode, select.dark-mode {
       background-color: #555;
-      color: #e0e0e0;
+      color: #fff; /* Texto nos inputs branco */
       border-color: #666;
   }
   button {
@@ -118,9 +119,9 @@ body {
       color: #333;
   }
   .semana.dark-mode {
-      background: #444;
+      background: #444; /* Fundo escuro para a seção de semanas */
       box-shadow: 0 0 5px rgba(255,255,255,0.1);
-      color: #fff; /* Texto branco no modo escuro */
+      color: #fff; /* Texto branco para legibilidade */
   }
   .week-table {
       width: 100%;
@@ -138,7 +139,7 @@ body {
   }
   .week-table.dark-mode th, .week-table.dark-mode td {
       border-color: #666;
-      color: #fff; /* Texto branco nas tabelas no modo escuro */
+      color: #fff; /* Texto branco nas tabelas */
   }
   .week-table.dark-mode th {
       background-color: #555;
