@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Função para formatar data como dd/mm/yyyy
   function formatarData(dataStr) {
       const [ano, mes, dia] = dataStr.split('-');
-      return `${dia}/${mes}/${ano}`; // Converte "2025-07-01" para "01/07/2025"
+      return `${dia}/${mes}/${ano}`;
   }
 
   function calcularSemanas(inicio, fim) {
@@ -97,7 +97,6 @@ document.addEventListener("DOMContentLoaded", () => {
               return;
           }
 
-          // Ajusta o saldoTicket considerando a diferença
           const diferenca = novoValor - gasto.valor;
           if (saldoTicket + gasto.valor >= novoValor) {
               saldoTicket -= diferenca;
@@ -108,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           gastos[index] = { data: novaData, valor: novoValor, local: novoLocal };
           localStorage.setItem("gastos", JSON.stringify(gastos));
-          exibirSemanas(); // Atualiza apenas as semanas para refletir a edição
+          exibirSemanas();
       }
   }
 
@@ -130,6 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const isDarkMode = body.classList.contains("dark-mode");
       localStorage.setItem("darkMode", isDarkMode);
       toggle.checked = isDarkMode;
+      console.log("Modo escuro ativado:", isDarkMode); // Log para depuração
   }
 
   function carregarModoEscuro() {
@@ -140,6 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
           body.classList.add("dark-mode");
           toggle.checked = true;
       }
+      console.log("Modo escuro carregado:", isDarkMode); // Log para depuração
   }
 
   function exibirPeriodo() {
