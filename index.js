@@ -31,7 +31,6 @@ document.getElementById('configForm').addEventListener('submit', function(e) {
       const mes = document.getElementById('mes').value;
       if (mes) {
           localStorage.setItem('mes', mes);
-          // Redireciona para lançamentos com o mês selecionado (período e ticket permanecem os últimos salvos)
           window.location.href = 'lancamentos.html';
       } else {
           alert('Selecione um mês!');
@@ -45,4 +44,16 @@ document.getElementById('configForm').addEventListener('submit', function(e) {
       const isDarkMode = body.classList.contains("dark-mode");
       localStorage.setItem("darkMode", isDarkMode);
       toggle.checked = isDarkMode;
+      console.log("Modo escuro ativado:", isDarkMode); // Log para depuração
   }
+
+  // Carrega o modo escuro ao iniciar a página
+  document.addEventListener("DOMContentLoaded", () => {
+      const isDarkMode = localStorage.getItem("darkMode") === "true";
+      const body = document.body;
+      const toggle = document.getElementById("darkModeToggle");
+      if (toggle && isDarkMode) {
+          body.classList.add("dark-mode");
+          toggle.checked = true;
+      }
+  });
